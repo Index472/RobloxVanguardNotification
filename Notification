@@ -1,0 +1,270 @@
+local TweenService = game:GetService("TweenService")
+local GroupService = game:GetService("GroupService")
+local Players = game:GetService("Players")
+local Player = Players.LocalPlayer
+local CreatorName = nil
+
+
+local Station = Instance.new("ScreenGui")
+Station.Parent = Player:WaitForChild("PlayerGui")
+Station.Enabled = true
+Station.ResetOnSpawn = false
+Station.DisplayOrder = 2100000000
+
+local LoadingBackground = Instance.new("Frame")
+LoadingBackground.Parent = Station
+LoadingBackground.Visible = false
+LoadingBackground.ZIndex = 2100000000
+LoadingBackground.BackgroundTransparency = 0
+LoadingBackground.AnchorPoint = Vector2.new(0.5, 0.5)
+LoadingBackground.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+LoadingBackground.BorderSizePixel = 0
+LoadingBackground.Position = UDim2.new(0.5, 0, 0.5, -18)
+LoadingBackground.Size = UDim2.new(2, 0, 2, 0)
+
+local LoadingLogo = Instance.new("ImageLabel")
+LoadingLogo.Parent = LoadingBackground
+LoadingLogo.Image = "http://www.roblox.com/asset/?id=10086464520"
+LoadingLogo.BackgroundTransparency = 1
+LoadingLogo.ZIndex = 2100000005
+LoadingLogo.AnchorPoint = Vector2.new(0.5, 0.5)
+LoadingLogo.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+LoadingLogo.BorderSizePixel = 0
+LoadingLogo.Position = UDim2.new(0.7, 0, 0.69, 0)
+LoadingLogo.Size = UDim2.new(0, 115, 0, 115)
+
+local GameTitle = Instance.new("TextLabel")
+GameTitle.Parent = LoadingBackground
+GameTitle.BackgroundTransparency = 1
+GameTitle.ZIndex = 2100000005
+GameTitle.AnchorPoint = Vector2.new(0.5, 0.5)
+GameTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+GameTitle.BorderSizePixel = 0
+GameTitle.Position = UDim2.new(0.5, 0, 0.5, 90)
+GameTitle.Size = UDim2.new(0, 200, 0, 50)
+GameTitle.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular)
+GameTitle.TextSize = 85
+GameTitle.Text = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
+
+local Owner = Instance.new("TextLabel")
+Owner.Parent = LoadingBackground
+Owner.BackgroundTransparency = 1
+Owner.ZIndex = 2100000005
+Owner.AnchorPoint = Vector2.new(0.5, 0.5)
+Owner.TextColor3 = Color3.fromRGB(255, 255, 255)
+Owner.BorderSizePixel = 0
+Owner.Position = UDim2.new(0.5, 0, 0.5, 140)
+Owner.Size = UDim2.new(0, 200, 0, 50)
+Owner.Text = ""
+Owner.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Light)
+Owner.TextSize = 40
+
+-- Notification
+local NotificationBackground = Instance.new("Frame")
+NotificationBackground.Parent = Station
+NotificationBackground.Visible = false
+NotificationBackground.ZIndex = 2000000000
+NotificationBackground.BackgroundTransparency = 0
+NotificationBackground.AnchorPoint = Vector2.new(0.5, 0.5)
+NotificationBackground.BackgroundColor3 = Color3.fromRGB(211, 56, 59)
+NotificationBackground.BorderSizePixel = 0
+NotificationBackground.Position = UDim2.new(0.5, 0, 0.5, -18)
+NotificationBackground.Size = UDim2.new(2, 0, 2, 0)
+
+local TopLine = Instance.new("Frame")
+TopLine.Parent = NotificationBackground
+TopLine.Visible = true
+TopLine.ZIndex = 2000000005
+TopLine.BackgroundTransparency = 0
+TopLine.AnchorPoint = Vector2.new(0.5, 0.5)
+TopLine.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TopLine.BorderSizePixel = 0
+TopLine.Position = UDim2.new(0.5, 0, 0.265, 0)
+TopLine.Size = UDim2.new(0.455, 0, 0, 1)
+
+local BottomLine = Instance.new("Frame")
+BottomLine.Parent = NotificationBackground
+BottomLine.Visible = true
+BottomLine.ZIndex = 2000000005
+BottomLine.BackgroundTransparency = 0
+BottomLine.AnchorPoint = Vector2.new(0.5, 0.5)
+BottomLine.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+BottomLine.BorderSizePixel = 0
+BottomLine.Position = UDim2.new(0.5, 0, 0.735, 0)
+BottomLine.Size = UDim2.new(0.455, 0, 0, 1)
+
+local NotificationLogo = Instance.new("ImageLabel")
+NotificationLogo.Parent = NotificationBackground
+NotificationLogo.Image = "http://www.roblox.com/asset/?id=10086464520"
+NotificationLogo.BackgroundTransparency = 1
+NotificationLogo.ZIndex = 2000000005
+NotificationLogo.AnchorPoint = Vector2.new(0.5, 0.7)
+NotificationLogo.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+NotificationLogo.BorderSizePixel = 0
+NotificationLogo.Position = UDim2.new(0.5, 0, 0.4, 0)
+NotificationLogo.Size = UDim2.new(0, 175, 0, 175)
+
+local NotificationTitle = Instance.new("TextLabel")
+NotificationTitle.Parent = NotificationBackground
+NotificationTitle.BackgroundTransparency = 1
+NotificationTitle.ZIndex = 2000000005
+NotificationTitle.AnchorPoint = Vector2.new(0.5, 0.5)
+NotificationTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+NotificationTitle.BorderSizePixel = 0
+NotificationTitle.Position = UDim2.new(0.5, 0, 0.48, 0)
+NotificationTitle.Size = UDim2.new(0, 100, 0, 50)
+NotificationTitle.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold)
+NotificationTitle.TextSize = 87
+NotificationTitle.Text = "CHEATER DETECTED"
+
+local TeminatedTitle = Instance.new("TextLabel")
+TeminatedTitle.Parent = NotificationBackground
+TeminatedTitle.BackgroundTransparency = 1
+TeminatedTitle.ZIndex = 2000000005
+TeminatedTitle.AnchorPoint = Vector2.new(0.5, 0.5)
+TeminatedTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+TeminatedTitle.BorderSizePixel = 0
+TeminatedTitle.Position = UDim2.new(0.5, 0, 0.535, 0)
+TeminatedTitle.Size = UDim2.new(0, 100, 0, 50)
+TeminatedTitle.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Medium)
+TeminatedTitle.TextSize = 50
+TeminatedTitle.Text = "MATCH TERMINATED"
+
+local Information = Instance.new("TextLabel")
+Information.Parent = NotificationBackground
+Information.BackgroundTransparency = 1
+Information.ZIndex = 2000000005
+Information.AnchorPoint = Vector2.new(0.5, 0.2)
+Information.TextColor3 = Color3.fromRGB(255, 255, 255)
+Information.BorderSizePixel = 0
+Information.Position = UDim2.new(0.5, 0, 0.545, 0)
+Information.Size = UDim2.new(0, 100, 0, 50)
+Information.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Regular)
+Information.TextSize = 28
+Information.Text = "A CHEATER HAS BEEN PUNISHED AND YOUR GAME HAS BEEN CANCELLED, NO WIN OR LOSS HAS BEEN CREDITED FOR ANY PLAYERS."
+
+local Continue = Instance.new("TextButton")
+Continue.Parent = NotificationBackground
+Continue.AutoButtonColor = false
+Continue.BackgroundTransparency = 0.8
+Continue.ZIndex = 2000000005
+Continue.AnchorPoint = Vector2.new(0.5, 0.5)
+Continue.TextColor3 = Color3.fromRGB(255, 255, 255)
+Continue.BorderSizePixel = 0
+Continue.Position = UDim2.new(0.5, 0, 0.68, 0)
+Continue.Size = UDim2.new(0, 221, 0, 57)
+Continue.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.SemiBold)
+Continue.TextSize = 34
+Continue.Text = "CONTINUE"
+
+local Stroke = Instance.new("UIStroke")
+Stroke.Parent = Continue
+Stroke.Color = Color3.fromRGB(255, 255, 255)
+Stroke.LineJoinMode = Enum.LineJoinMode.Miter
+Stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+Stroke.Thickness = 2
+Stroke.Transparency = 0.65
+
+local LT = Instance.new("Frame")
+LT.Parent = Continue
+LT.Visible = true
+LT.ZIndex = 2000000005
+LT.BackgroundTransparency = 0
+LT.AnchorPoint = Vector2.new(0.5, 0.5)
+LT.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+LT.BorderSizePixel = 0
+LT.Position = UDim2.new(0.5, -111, 0.5, -29.8)
+LT.Size = UDim2.new(0, 2, 0, 2)
+
+local RT = Instance.new("Frame")
+RT.Parent = Continue
+RT.Visible = true
+RT.ZIndex = 2000000005
+RT.BackgroundTransparency = 0
+RT.AnchorPoint = Vector2.new(0.5, 0.5)
+RT.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+RT.BorderSizePixel = 0
+RT.Position = UDim2.new(0.5, 112, 0.5, -29.8)
+RT.Size = UDim2.new(0, 2, 0, 2)
+
+local LB = Instance.new("Frame")
+LB.Parent = Continue
+LB.Visible = true
+LB.ZIndex = 2000000005
+LB.BackgroundTransparency = 0
+LB.AnchorPoint = Vector2.new(0.5, 0.5)
+LB.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+LB.BorderSizePixel = 0
+LB.Position = UDim2.new(0.5, -111, 0.5, 29.8)
+LB.Size = UDim2.new(0, 2, 0, 2)
+
+local RB = Instance.new("Frame")
+RB.Parent = Continue
+RB.Visible = true
+RB.ZIndex = 2000000005
+RB.BackgroundTransparency = 0
+RB.AnchorPoint = Vector2.new(0.5, 0.5)
+RB.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+RB.BorderSizePixel = 0
+RB.Position = UDim2.new(0.5, 112, 0.5, 29.8)
+RB.Size = UDim2.new(0, 2, 0, 2)
+
+-- Notification
+
+Continue.MouseEnter:Connect(function()
+    TweenService:Create(LT, TweenInfo.new(0.3, Enum.EasingStyle.Sine), { Position = UDim2.new(0.5, -107, 0.5, -25) }):Play()
+    TweenService:Create(RT, TweenInfo.new(0.3, Enum.EasingStyle.Sine), { Position = UDim2.new(0.5, 107, 0.5, -25) }):Play()
+    TweenService:Create(LB, TweenInfo.new(0.3, Enum.EasingStyle.Sine), { Position = UDim2.new(0.5, -107, 0.5, 25) }):Play()
+    TweenService:Create(RB, TweenInfo.new(0.3, Enum.EasingStyle.Sine), { Position = UDim2.new(0.5, 107, 0.5, 25) }):Play()
+    TweenService:Create(Continue, TweenInfo.new(0.3, Enum.EasingStyle.Sine), { BackgroundColor3 = Color3.fromRGB(255, 255, 170) }):Play()
+    TweenService:Create(Stroke, TweenInfo.new(0.3, Enum.EasingStyle.Sine), { Transparency = 0.2 }):Play()
+    TweenService:Create(Stroke, TweenInfo.new(0.3, Enum.EasingStyle.Sine), { Color = Color3.fromRGB(255, 240, 150) }):Play()
+end)
+
+Continue.MouseLeave:Connect(function()
+    TweenService:Create(LT, TweenInfo.new(0.3, Enum.EasingStyle.Sine), { Position = UDim2.new(0.5, -111, 0.5, -29.8) }):Play()
+    TweenService:Create(RT, TweenInfo.new(0.3, Enum.EasingStyle.Sine), { Position = UDim2.new(0.5, 112, 0.5, -29.8) }):Play()
+    TweenService:Create(LB, TweenInfo.new(0.3, Enum.EasingStyle.Sine), { Position = UDim2.new(0.5, -111, 0.5, 29.8) }):Play()
+    TweenService:Create(RB, TweenInfo.new(0.3, Enum.EasingStyle.Sine), { Position = UDim2.new(0.5, 112, 0.5, 29.8) }):Play()
+    TweenService:Create(Continue, TweenInfo.new(0.3, Enum.EasingStyle.Sine), { BackgroundColor3 = Color3.fromRGB(255, 255, 255) }):Play()
+    TweenService:Create(Stroke, TweenInfo.new(0.3, Enum.EasingStyle.Sine), { Transparency = 0.65 }):Play()
+    TweenService:Create(Stroke, TweenInfo.new(0.3, Enum.EasingStyle.Sine), { Color = Color3.fromRGB(255, 255, 255) }):Play()
+end)
+
+repeat
+    local Success, Message = pcall(function()
+        if game.CreatorType == Enum.CreatorType.Group then
+            CreatorName = "By " .. GroupService:GetGroupInfoAsync(game.CreatorId).Name
+        else
+            CreatorName = "By " .. game.Players:GetNameFromUserIdAsync(game.CreatorId)
+        end
+    end)
+    task.wait(0.1)
+until Success
+game:GetService("StarterGui"):SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false)
+game:GetService("StarterGui"):SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, false)
+game:GetService("StarterGui"):SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
+Player.CameraMinZoomDistance = 1
+Owner.Text = CreatorName
+LoadingBackground.Visible = true
+NotificationBackground.Visible = true
+
+for Index, Value in pairs(game:GetDescendants()) do
+    if Value:IsA("Sound") then
+        Value:Remove()
+    end
+end
+
+for i = 1, 4 do
+    task.wait(0.3)
+    LoadingLogo.Rotation = 0
+	TweenService:Create(LoadingLogo, TweenInfo.new(1.5, Enum.EasingStyle.Quart), {Rotation = LoadingLogo.Rotation + 360}):Play()
+    task.wait(1.35)
+end
+
+TweenService:Create(LoadingBackground, TweenInfo.new(0.7, Enum.EasingStyle.Linear), {BackgroundTransparency = 1}):Play()
+TweenService:Create(LoadingLogo, TweenInfo.new(0.7, Enum.EasingStyle.Linear), {ImageTransparency = 1}):Play()
+TweenService:Create(GameTitle, TweenInfo.new(0.7, Enum.EasingStyle.Linear), {TextTransparency = 1}):Play()
+TweenService:Create(Owner, TweenInfo.new(0.7, Enum.EasingStyle.Linear), {TextTransparency = 1}):Play()
+task.wait(1)
+LoadingBackground:Remove()
